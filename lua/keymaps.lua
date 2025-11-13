@@ -5,3 +5,5 @@ map("i", "jk", "<Esc>", opts)
 
 map("n", "x", '"_x', opts)
 
+map("v", "/", "<Esc>/\\%V", opts)
+
