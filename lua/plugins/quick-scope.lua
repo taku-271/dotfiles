@@ -1,6 +1,6 @@
 return {
   "unblevable/quick-scope",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "VeryLazy",
   init = function()
     -- 常に有効化（デフォルトは無効化して手動でトグル）
     vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
@@ -20,6 +20,7 @@ return {
       highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
       highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
     ]])
+
   end,
 }
 
