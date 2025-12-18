@@ -1,11 +1,14 @@
 {
   "vscode-neovim.compositeKeys": {
     "jk": {
-      "command": "vscode-neovim.escape",
+      "command": "vscode-neovim.escape"
     }
   },
+  "remote.SSH.remotePlatform": {
+    "unineku": "macOS"
+  },
   "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1,
+    "asvetliakov.vscode-neovim": 1
   },
   "editor.lineNumbers": "relative",
   "github.copilot.nextEditSuggestions.enabled": true,
