@@ -50,4 +50,18 @@
     "editor.formatOnType": true,
     "editor.wordBasedSuggestions": "off"
   },
+  "chat.viewSessions.orientation": "stacked",
+  "vsicons.dontShowNewVersionMessage": true,
+  "claudeCode.useCtrlEnterToSend": true,
+  // "claudeCode.environmentVariables": [
+  //   {
+  //     "name": "CLAUDE_CODE_USE_BEDROCK",
+  //     "value": "1,"
+  //   },
+  //   {
+  //     "name": "AWS_PROFILE",
+  //     "value": "claude-code"
+  //   }
+  // ],
+  // "claudeCode.selectedModel": "jp.anthropic.claude-sonnet-4-5-20250929-v1:0"
 }
