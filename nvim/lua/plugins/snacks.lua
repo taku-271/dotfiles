@@ -42,6 +42,9 @@ return {
           truncate = 400,
         },
       },
+      jump = {
+        reuse_win = false,
+      },
     },
   },
   keys = {

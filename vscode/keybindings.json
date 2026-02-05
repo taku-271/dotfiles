@@ -12,27 +12,20 @@
   },
   {
     "key": "ctrl+[BracketLeft]",
-    "command": "workbench.action.terminal.toggleTerminal",
-    "when": "terminal.active"
+    "command": "workbench.action.terminal.toggleTerminal"
   },
   {
     "key": "ctrl+shift+[BracketLeft]",
-    "command": "-workbench.action.terminal.toggleTerminal",
-    "when": "terminal.active"
-  },
-  {
-    "key": "ctrl+shift+[BracketLeft]",
-    "command": "workbench.action.terminal.new",
-    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
-  },
-  {
-    "key": "ctrl+shift+`",
-    "command": "-workbench.action.terminal.new",
-    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    "command": "workbench.action.terminal.new"
   },
   {
     "command": "renameFile",
     "key": "enter",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-list.select",
     "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   }
 ]

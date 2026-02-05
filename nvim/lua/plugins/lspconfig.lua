@@ -93,6 +93,11 @@ vim.lsp.config("ts_ls", {
       },
     })
 
-    vim.lsp.enable({ "ts_ls", "eslint", "lua_ls" })
+    vim.lsp.config("terraformls", {
+      capabilities = capabilities,
+      filetypes = { "terraform", "terraform-vars" },
+    })
+
+    vim.lsp.enable({ "ts_ls", "eslint", "lua_ls", "terraformls" })
   end,
 }

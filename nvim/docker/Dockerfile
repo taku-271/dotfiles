@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   xclip \
   unzip \
   ca-certificates \
+  gnupg \
+  software-properties-common \
+  wget \
   && rm -rf /var/lib/apt/lists/*
 
 # Node.js最新版のインストール
@@ -31,10 +34,28 @@ RUN LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit
   && install lazygit /usr/local/bin \
   && rm lazygit lazygit.tar.gz
 
+# AWS CLI のインストール
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && bash ./aws/install
+
 # Claude Codeのインストール
 RUN npm install -g @anthropic-ai/claude-code
+
+# terraform のインストール
+RUN wget -O- https://apt.releases.hashicorp.com/gpg | \
+  gpg --dearmor | \
+  tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" \ 
+  | tee /etc/apt/sources.list.d/hashicorp.list
+RUN apt update && apt install terraform
+
+# GitHubのSSHホストキーを事前登録
+RUN mkdir -p /root/.ssh \
+  && ssh-keyscan github.com >> /root/.ssh/known_hosts 2>/dev/null
 
 ENV PATH="/root/.local/share/nvim/mason/bin:${PATH}"
 
 WORKDIR /workspace
 CMD ["nvim", "+TSUpdate", "."]
+
