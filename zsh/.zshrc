@@ -18,21 +18,27 @@ eval "$(starship init zsh)"
 
 # cd した後に ls するように
 function chpwd() {
-  ls -a --color
+  ls -a
 }
 
 # docker-nvimの設定
 function dnvim() {
+  local input_path="${1:-.}"
+  
   local target_path
-  target_path=$(pwd)
+  target_path=$(realpath "$input_path")
 
   local config_dir="$HOME/Documents/dotfiles/nvim/docker"
+
+  if [ ! -d "$target_path" ] && [ ! -f "$target_path" ]; then
+    echo "Error: Path '$target_path' does not exist."
+    return 1
+  fi
 
   TARGET_PATH="$target_path" docker compose \
     -f "$config_dir/docker-compose.yaml" \
     -p "nvim-env" \
     run \
-    --service-ports \
     --rm nvim
 }
 

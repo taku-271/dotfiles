@@ -11,7 +11,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   xclip \
   unzip \
   ca-certificates \
+  docker.io \
+  gnupg \
   && rm -rf /var/lib/apt/lists/*
+
+# Docker Composeのインストール
+RUN install -m 0755 -d /etc/apt/keyrings \
+  && curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+  && chmod a+r /etc/apt/keyrings/docker.gpg \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo $VERSION_CODENAME) stable" \
+  | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  && apt-get update -y \
+  && apt-get install -y docker-ce-cli
 
 # Node.js最新版のインストール
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
@@ -31,8 +42,11 @@ RUN LAZYGIT_VERSION=$(curl -s https://api.github.com/repos/jesseduffield/lazygit
   && install lazygit /usr/local/bin \
   && rm lazygit lazygit.tar.gz
 
-# Claude Codeのインストール
-RUN npm install -g @anthropic-ai/claude-code
+# Claude Code，DevContainersのインストール
+RUN npm install -g @anthropic-ai/claude-code @devcontainers/cli
+
+# DevContainers用のaliasを設定
+RUN echo "alias dc='devcontainer up --workspace-folder . && devcontainer exec bash'" >> /root/.bashrc
 
 # GitHubのSSHホストキーを事前登録
 RUN mkdir -p /root/.ssh \
@@ -40,5 +54,4 @@ RUN mkdir -p /root/.ssh \
 
 ENV PATH="/root/.local/share/nvim/mason/bin:${PATH}"
 
-WORKDIR /workspace
 CMD ["nvim", "+TSUpdate", "."]

@@ -26,21 +26,23 @@ opt.smartcase = true
 opt.cursorline = true
 opt.cursorcolumn = true
 
--- ssh先やdocker内でもクリップボードを共有
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-  },
-}
+-- ssh先やdocker内でもクリップボードを共有（VSCode以外）
+if not vim.g.vscode then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
+end
 
 -- クリップボードを共有
-opt.clipboard:append{"unnamedplus"}
+opt.clipboard:append { "unnamedplus" }
 
 -- インクリメントリサーチ
 opt.incsearch = true
@@ -56,4 +58,6 @@ opt.updatetime = 300
 -- 分割された場合にそこにフォーカスする
 opt.splitbelow = true
 opt.splitright = true
+
+vim.cmd("colorscheme habamax")
 

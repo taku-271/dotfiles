@@ -10,3 +10,7 @@ window-save-state = always
 macos-option-as-alt = left
 
 maximize = true
+
+clipboard-read = allow
+clipboard-write = allow
+
